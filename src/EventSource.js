@@ -24,6 +24,7 @@ class EventSource {
       open: [],
       message: [],
       error: [],
+      done: [],
       close: [],
     };
 
@@ -117,6 +118,7 @@ class EventSource {
           if (xhr.readyState === XMLHttpRequest.DONE) {
             this._logDebug('[EventSource][onreadystatechange][DONE] Operation done.');
             this._pollAgain(this.interval, false);
+            this.dispatch('done', { type: 'done' });
           }
         } else if (xhr.status !== 0) {
           this.status = this.ERROR;
